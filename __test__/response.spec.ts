@@ -50,6 +50,6 @@ describe("Response", () => {
       chowchow.validateRequest("/pets/abc", {
         method: "get"
       });
-    }).toThrowError(ChowError);
+    }).toThrowError(Error);
   });
 });

@@ -22,6 +22,6 @@ describe('Path', () => {
       chowchow.validateRequest('/pets/abc', {
         method: 'get'
       });
-    }).toThrowError(ChowError); 
+    }).toThrowError(/Schema validation error: .* should be integer/);
   })
 })

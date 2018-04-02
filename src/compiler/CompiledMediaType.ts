@@ -12,10 +12,6 @@ export default class CompiledMediaType {
   }
 
   public validate(value: any) {
-    try {
-      this.compiledSchema.validate(value);
-    } catch(e) {
-      throw new ChowError('Schema validation error', { in: '', name: this.name, rawErrors: e });
-    }
+    this.compiledSchema.tryValidate(value);
   }
 }

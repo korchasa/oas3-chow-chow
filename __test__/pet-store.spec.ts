@@ -34,7 +34,7 @@ describe('Pet Store', () => {
             petId: 'chow'
           }
         });
-      }).toThrowError(ChowError);
+      }).toThrowError(/Schema validation error: .* should be integer/);
     })
 
     test('It should pass validation if provided path parameter is correct', () => {
@@ -58,7 +58,7 @@ describe('Pet Store', () => {
             limit: 'xyz'
           }
         });
-      }).toThrowError(ChowError);
+      }).toThrowError(/Schema validation error: .* should be integer/);
     })
 
     test('It should pass validation if provided path parameter is correct', () => {
@@ -69,7 +69,7 @@ describe('Pet Store', () => {
             limit: 50
           }
         });
-      }).not.toThrowError(); 
+      }).not.toThrowError();
     })
 
     test('It should pass validation if an array is passed to parameter which should be an array', () => {
@@ -91,7 +91,7 @@ describe('Pet Store', () => {
             breed: ['nice dog']
           }
         })
-      }).toThrowError(ChowError);
+      }).toThrowError(/Schema validation error: .* should be equal to one of the allowed values/);
     })
 
     test('It should fail validation if number of items exceeds the limit', () => {
@@ -102,7 +102,7 @@ describe('Pet Store', () => {
             breed: ['chowchow', 'bichon', 'jack russell', 'labrador']
           }
         })
-      }).toThrowError(ChowError);
+      }).toThrowError(/Schema validation error: .* should NOT have more than 3 items/);
     })
 
     test('It should pass validation for valid array parameter', () => {
@@ -128,7 +128,7 @@ describe('Pet Store', () => {
             'content-type': 'application/json'
           }
         })
-      }).toThrowError(ChowError)
+      }).toThrowError(/Schema validation error: .* should have required property 'id'/);
     })
 
     test('It should fail validation if invalid mediaType is asked', () => {
@@ -184,7 +184,7 @@ describe('Pet Store', () => {
             'content-type': 'application/json'
           }
         })
-      }).not.toThrowError() 
+      }).not.toThrowError()
     })
   })
 
@@ -208,7 +208,7 @@ describe('Pet Store', () => {
             version: 'awsome version'
           }
         })
-      }).toThrowError(ChowError)
+      }).toThrowError(/Schema validation error: .* should be integer/);
     })
 
     test('It should pass validation if headers are satisfied', () => {
@@ -241,7 +241,7 @@ describe('Pet Store', () => {
             count: 'many'
           }
         })
-      }).toThrowError(ChowError)
+      }).toThrowError(/Schema validation error: .* should be integer/);
     })
 
     test('It should pass validation if cookies are satisfied', () => {

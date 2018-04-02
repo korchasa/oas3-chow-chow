@@ -27,10 +27,6 @@ export default class CompiledRequestBody {
       throw new ChowError(`Unsupported mediaType: ${mediaType}`, { in: 'Request Body', name: 'media types'});
     }
 
-    try {
-      this.compiledSchemas[mediaType].validate(value);
-    } catch(e) {
-      throw new ChowError('Schema validation error', { in: 'RequestBody', name: '', rawErrors: e });
-    }
+    this.compiledSchemas[mediaType].tryValidate(value);
   }
 }

@@ -2,6 +2,7 @@ import { SchemaObject } from 'openapi3-ts';
 import * as Ajv from 'ajv';
 import * as betterAjvErrors from 'better-ajv-errors';
 import ajv from './ajv';
+import ChowError from '../error';
 
 const noop: Ajv.ValidateFunction = (data: any) => {
   return true;
@@ -16,16 +17,11 @@ export default class CompiledSchema {
     this.validator = schema ? ajv(opts).compile(schema) : noop;
   }
 
-  public validate(value: any) {
+  public tryValidate(value: any) {
     const valid = this.validator(value);
     if (!valid) {
-      const errors = betterAjvErrors(this.schemaObject, value || '', this.validator.errors!, { format: 'js', indent: 2 });
-      /**
-       * In the case where betterAjvErrors accidently return 0 errors
-       * we return raw errors
-       */
-      if (Array.isArray(errors) && errors.length > 0) { throw errors };
-      throw this.validator.errors;
+      const errorsStr = betterAjvErrors(this.schemaObject, value || {}, this.validator.errors!, { format: 'cli', indent: 2 });
+      throw new Error("Schema validation error: " + errorsStr);
     }
   }
 }

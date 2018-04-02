@@ -24,11 +24,7 @@ export default class CompiledHeader {
     if (this.ignored) {
       return
     } else if (value) {
-      try {
-        this.compiledSchema.validate(value);
-      } catch(e) {
-        throw new ChowError('Schema validation error', { in: this.in, name: this.name, rawErrors: e });
-      }
+      this.compiledSchema.tryValidate(value);
     } else if (this.required) {
       throw new ChowError('Missing required parameter', { in: this.in, name: this.name });
     }
