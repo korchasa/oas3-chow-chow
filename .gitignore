@@ -1,6 +1,5 @@
 /node_modules
 /coverage
 /.vscode
-/lib
 .DS_store
 yarn-error.log
